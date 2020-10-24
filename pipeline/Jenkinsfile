@@ -8,11 +8,11 @@ node {
    stage('test') {
      nodejs(nodeJSInstallationName: 'nodejs') {
        sh 'npm install --only=dev'
-       sh 'npm test' 
+       sh 'npm test'
      }
    }
    stage('docker build/push') {
-     docker.withRegistry('https://hub.docker.com/', 'docker') {
+     docker.withRegistry('https://registry.hub.docker.com/v1/', 'docker') {
        def app = docker.build("codergogoi/nodejs-devops:${commit_id}", '.').push()
      }
    }
